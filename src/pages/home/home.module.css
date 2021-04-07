@@ -1,0 +1,13 @@
+.home{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content{
+    width: 660px;
+    text-align: center;
+}
+.contentLinks{
+    margin-top: 16px;
+}
