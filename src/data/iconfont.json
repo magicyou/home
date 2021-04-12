@@ -1,0 +1,163 @@
+{
+  "id": "2241745",
+  "name": "home",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "我的导航页",
+  "glyphs": [
+    {
+      "icon_id": "7693854",
+      "name": "草莓干",
+      "font_class": "caomeigan",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "17784698",
+      "name": "草莓",
+      "font_class": "caomei1",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "18421823",
+      "name": "U盘",
+      "font_class": "Upan",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "18421824",
+      "name": "笔记",
+      "font_class": "biji",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "18421825",
+      "name": "打印机",
+      "font_class": "dayinji",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "18421826",
+      "name": "笔记-1",
+      "font_class": "biji-1",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "18421827",
+      "name": "电脑",
+      "font_class": "diannao",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "18421828",
+      "name": "耳机",
+      "font_class": "erji",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "18421829",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "18421830",
+      "name": "篮球",
+      "font_class": "lanqiu",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "18421831",
+      "name": "鼠标",
+      "font_class": "shubiao",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "18421832",
+      "name": "日历",
+      "font_class": "rili",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "18421833",
+      "name": "闹钟",
+      "font_class": "naozhong",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "18421834",
+      "name": "水杯",
+      "font_class": "shuibei",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "18421835",
+      "name": "手提包",
+      "font_class": "shoutibao",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "18421837",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "18421838",
+      "name": "椅子",
+      "font_class": "yizi",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "18421839",
+      "name": "台灯",
+      "font_class": "taideng",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "18421840",
+      "name": "文件",
+      "font_class": "wenjian",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "18421841",
+      "name": "座机",
+      "font_class": "zuoji",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "18421842",
+      "name": "照相机",
+      "font_class": "zhaoxiangji",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "16398971",
+      "name": "管理",
+      "font_class": "guanli",
+      "unicode": "e858",
+      "unicode_decimal": 59480
+    }
+  ]
+}
