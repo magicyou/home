@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import IconFont from '../../components/IconFont';
 import Style from './home.module.css';
-import { Input, Row, Col, Button  } from 'antd';
-
+import { Input, Row, Col, Button, Drawer, Form } from 'antd';
+import {
+    PlusOutlined,
+    UserOutlined
+} from '@ant-design/icons';
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visibleLoginDrawer: false
+        };
+    }
 
     onSearch(keyword) {
         if (keyword) {
@@ -14,6 +23,61 @@ class Home extends Component {
 
     linkTo(url) {
         window.open(url)
+    }
+
+    onClose() {
+        this.setState({
+            visibleLoginDrawer: false
+        });
+    }
+
+    loginDrawer () {
+        const { visibleLoginDrawer } = this.state;
+        const onFinish = (values) => {
+            console.log('Success:', values);
+        };
+    
+        const onFinishFailed = (errorInfo) => {
+            console.log('Failed:', errorInfo);
+        };
+
+        return (
+            <Drawer
+                title="Login"
+                placement="right"
+                closable={true}
+                onClose={this.onClose.bind(this)}
+                visible={visibleLoginDrawer}
+                width={400}
+            >
+
+                <Form
+                    name="basic"
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                >
+                    <Form.Item
+                        label=""
+                        name="username"
+                        rules={[{ required: true, message: 'Please input your username!' }]}
+                    >
+                        <Input placeholder="default size" prefix={<UserOutlined />} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label=""
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input.Password prefix={<UserOutlined />} />
+                    </Form.Item>
+                </Form>
+
+                <Button type="primary" block>Login</Button>
+
+            </Drawer>
+        )
     }
 
     render () {
@@ -26,28 +90,36 @@ class Home extends Component {
 
         return (
             <main className={Style.home}>
-            <div className={Style.content}>
-                <h1>ENTRY</h1>
-                <Input.Search 
-                    placeholder="input search text" 
-                    addonBefore="Baidu" 
-                    onSearch={(e) => this.onSearch(e)}
+                <Button className={Style.btnAdd} shape="circle" icon={<PlusOutlined />} size={16} 
+                    onClick={() => {
+                        this.setState({
+                            visibleLoginDrawer: true
+                        });
+                    }}
                 />
-                <Row gutter={16} className={Style.contentLinks}>
-                    {links.map((item, index) =>  (
-                            <Col className="gutter-row" span={6} key={index}>
-                                <Button 
-                                    type="link" 
-                                    onClick={() => this.linkTo(item.linkUrl)}
-                                >
-                                    <IconFont type={item.icon} />
-                                    <p className="height-100">{ item.name }</p>
-                                </Button>
-                            </Col>
-                        ))}
-                </Row>
+                <div className={Style.content}>
+                    <h1>ENTRY</h1>
+                    <Input.Search 
+                        placeholder="input search text" 
+                        addonBefore="Baidu" 
+                        onSearch={(e) => this.onSearch(e)}
+                    />
+                    <Row gutter={16} className={Style.contentLinks}>
+                        {links.map((item, index) =>  (
+                                <Col className="gutter-row" span={6} key={index}>
+                                    <Button 
+                                        type="link" 
+                                        onClick={() => this.linkTo(item.linkUrl)}
+                                    >
+                                        <IconFont type={item.icon} />
+                                        <p className="height-100">{ item.name }</p>
+                                    </Button>
+                                </Col>
+                            ))}
+                    </Row>
+                </div>
 
-            </div>
+                {this.loginDrawer()}
             </main>
         );
     }
