@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import IconFont from '../../components/IconFont';
 import Style from './home.module.css';
-import { Input, Row, Col, Button, Drawer, Form } from 'antd';
+import { Input, Row, Col, Button } from 'antd';
 import {
     PlusOutlined,
-    UserOutlined
 } from '@ant-design/icons';
+
+import LoginDrawer from './loginDrawer';
 
 class Home extends Component {
     constructor(props) {
@@ -31,55 +32,6 @@ class Home extends Component {
         });
     }
 
-    loginDrawer () {
-        const { visibleLoginDrawer } = this.state;
-        const onFinish = (values) => {
-            console.log('Success:', values);
-        };
-    
-        const onFinishFailed = (errorInfo) => {
-            console.log('Failed:', errorInfo);
-        };
-
-        return (
-            <Drawer
-                title="Login"
-                placement="right"
-                closable={true}
-                onClose={this.onClose.bind(this)}
-                visible={visibleLoginDrawer}
-                width={400}
-            >
-
-                <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                >
-                    <Form.Item
-                        label=""
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <Input placeholder="default size" prefix={<UserOutlined />} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label=""
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password prefix={<UserOutlined />} />
-                    </Form.Item>
-                </Form>
-
-                <Button type="primary" block>Login</Button>
-
-            </Drawer>
-        )
-    }
-
     render () {
         const links = [
             {'name': 'Blog', icon:'iconbiji', linkUrl: 'https://blog.magicyou.cn/'},
@@ -87,6 +39,8 @@ class Home extends Component {
             {'name': 'Frp', icon:'icondiannao', linkUrl: ''},
             {'name': 'Pi', icon:'iconcaomeigan', linkUrl: 'http://pi.magicyou.cn/'},
         ];
+
+        const { visibleLoginDrawer } = this.state;
 
         return (
             <main className={Style.home}>
@@ -119,7 +73,7 @@ class Home extends Component {
                     </Row>
                 </div>
 
-                {this.loginDrawer()}
+                <LoginDrawer visible={visibleLoginDrawer} onClose={()=>this.onClose()}/>
             </main>
         );
     }
