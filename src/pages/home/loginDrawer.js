@@ -3,6 +3,7 @@ import { Input, Button, Drawer, Form } from 'antd';
 import {
     UserOutlined
 } from '@ant-design/icons';
+import { loginApi } from '../../api/login/index'
 
 class loginDrawer extends Component {
     constructor(props) {
@@ -33,11 +34,24 @@ class loginDrawer extends Component {
         });
     }
 
+    /**
+     * 登录操作
+     * @author Bruce Lee
+     * @date 2021-04-21
+     * @returns {any}
+     */
     doLogin() {
-        console.log('######## Login Info ############');
-        console.log('username:', this.state.username);
-        console.log('password:', this.state.password);
-        console.log('######## End ############');
+        const { username, password } = this.state;
+        let params = {
+            username,
+            password
+        };
+        return loginApi(params).then((data) => {
+            localStorage.setItem('token', data.token);
+            this.onClose();
+        }).finally(() => {
+            
+        });
     }
 
 
@@ -46,6 +60,7 @@ class loginDrawer extends Component {
         const { username, password } = this.state;
         const onFinish = (values) => {
             console.log('Success:', values);
+            this.doLogin();
         };
     
         const onFinishFailed = (errorInfo) => {

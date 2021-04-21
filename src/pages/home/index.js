@@ -7,15 +7,20 @@ import {
 } from '@ant-design/icons';
 
 import LoginDrawer from './loginDrawer';
+import ManageDrawer from './manageDrawer';
+
+import { getEntryListApi, deleteEntryByIdApi, switchEntryDisplayByidApi } from '../../api/entry/index'
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visibleLoginDrawer: false
+            visibleLoginDrawer: false,
+            visibleManageDrawer: false,
+            links: [],
         };
     }
-
+    
     onSearch(keyword) {
         if (keyword) {
             window.open(`https://www.baidu.com/s?wd=${keyword}`)
@@ -26,29 +31,55 @@ class Home extends Component {
         window.open(url)
     }
 
+    onOpenAddPanel() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            this.setState({
+                visibleManageDrawer: true,
+            });
+        } else {
+            this.setState({
+                visibleLoginDrawer: true,
+            });
+        }
+    }
+
     onClose() {
         this.setState({
-            visibleLoginDrawer: false
+            visibleLoginDrawer: false,
+            visibleManageDrawer: false,
         });
     }
 
-    render () {
-        const links = [
-            {'name': 'Blog', icon:'iconbiji', linkUrl: 'https://blog.magicyou.cn/'},
-            {'name': 'Cloud', icon:'iconwenjianjia', linkUrl: ''},
-            {'name': 'Frp', icon:'icondiannao', linkUrl: ''},
-            {'name': 'Pi', icon:'iconcaomeigan', linkUrl: 'http://pi.magicyou.cn/'},
-        ];
+    /**
+     * 获取所有入口
+     * @author Bruce Lee
+     * @date 2021-04-21
+     * @returns {any}
+     */
+    getEntryList() {
+        this.loginLoading = true;
+        return getEntryListApi().then((data) => {
+            this.setState({
+                links: data || []
+            });
+        }).finally(() => {
+            this.loginLoading = false;
+        });
+    }
 
-        const { visibleLoginDrawer } = this.state;
+    componentDidMount() {
+        this.getEntryList();
+    }
+
+    render () {
+        const { visibleLoginDrawer, visibleManageDrawer, links } = this.state;
 
         return (
             <main className={Style.home}>
                 <Button className={Style.btnAdd} shape="circle" icon={<PlusOutlined />} size={16} 
                     onClick={() => {
-                        this.setState({
-                            visibleLoginDrawer: true
-                        });
+                        this.onOpenAddPanel()
                     }}
                 />
                 <div className={Style.content}>
@@ -74,6 +105,7 @@ class Home extends Component {
                 </div>
 
                 <LoginDrawer visible={visibleLoginDrawer} onClose={()=>this.onClose()}/>
+                <ManageDrawer visible={visibleManageDrawer} onClose={()=>this.onClose()}/>
             </main>
         );
     }
