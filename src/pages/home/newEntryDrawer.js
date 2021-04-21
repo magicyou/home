@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Input, Button, Drawer, Form } from 'antd';
+import { Input, Button, Drawer, Form, Select } from 'antd';
 import {
     UserOutlined
 } from '@ant-design/icons';
 import { loginApi } from '../../api/login/index'
 
-class newEntryDrawer extends Component {
+class loginDrawer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -69,7 +69,7 @@ class newEntryDrawer extends Component {
 
         return (
             <Drawer
-                title="Login"
+                title="Add New Entry"
                 placement="right"
                 closable={true}
                 onClose={this.onClose}
@@ -107,6 +107,16 @@ class newEntryDrawer extends Component {
                             onChange={(e)=>this.inputPassword(e)}
                         />
                     </Form.Item>
+
+                    <Form.Item
+                        label=""
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Select defaultValue="lucy" allowClear>
+                            <Select.Option value="lucy">Lucy</Select.Option>
+                        </Select>
+                    </Form.Item>
                 </Form>
 
                 <Button type="primary" block onClick={()=> {this.doLogin()}}>Login</Button>
@@ -116,4 +126,4 @@ class newEntryDrawer extends Component {
     }
 }
 
-export default newEntryDrawer;
+export default loginDrawer;

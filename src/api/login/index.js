@@ -1,8 +1,10 @@
 import axios from '../../utils/request';
 
 const UrlObj = {
-    doLoginUrl: '/login'
+    doLoginUrl: '/login',
+    checkTokenUrl: '/checkToken'
 };
+
 /**
  * 登录
  * @method Login
@@ -16,6 +18,21 @@ export const loginApi = (data) => {
             url: UrlObj.doLoginUrl,
             data : data,
             method: 'post'
+        }
+    )
+};
+
+/**
+  * 检查token
+  * @author Bruce Lee
+  * @date 2021-04-21
+  * @returns {Promise}
+  */
+export const checkTokenApi = () => {
+    return axios.request(
+        {
+            url: UrlObj.checkTokenUrl,
+            method: 'get'
         }
     )
 };

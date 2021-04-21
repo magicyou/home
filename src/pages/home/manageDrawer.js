@@ -20,10 +20,15 @@ class manageDrawer extends Component {
         this.getEntryList = this.getEntryList.bind(this);
         this.onSwitch = this.onSwitch.bind(this);
         this.onDeleteEntry = this.onDeleteEntry.bind(this);
+        this.openAddPanel = this.openAddPanel.bind(this);
     }
 
     onClose() {
         this.props.onClose();
+    }
+
+    openAddPanel() {
+        this.props.openAddPanel();
     }
 
     /**
@@ -70,7 +75,7 @@ class manageDrawer extends Component {
                 this.getEntryList();
             }
         }).finally(() => {
-            
+
         });
     }
 
@@ -136,7 +141,7 @@ class manageDrawer extends Component {
                 >
                     <Button size="small" shape="circle" icon={<DeleteOutlined />}></Button>
                 </Popconfirm>
-        )
+            )
         }
         
 
@@ -150,7 +155,7 @@ class manageDrawer extends Component {
                 visible={visible}
                 width={400}
             >
-                <Button type="primary" block onClick={()=> {}}>Add New Entry</Button>
+                <Button type="primary" block onClick={()=> {this.openAddPanel()}}>Add New Entry</Button>
 
                 <List
                     loading={initLoading}

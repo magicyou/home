@@ -8,8 +8,10 @@ import {
 
 import LoginDrawer from './loginDrawer';
 import ManageDrawer from './manageDrawer';
+import NewEntryDrawer from './newEntryDrawer';
 
-import { getEntryListApi, deleteEntryByIdApi, switchEntryDisplayByidApi } from '../../api/entry/index'
+import { getEntryListApi } from '../../api/entry/index'
+import { checkTokenApi } from '../../api/login/index'
 
 class Home extends Component {
     constructor(props) {
@@ -17,8 +19,10 @@ class Home extends Component {
         this.state = {
             visibleLoginDrawer: false,
             visibleManageDrawer: false,
+            visibleNewEntryDrawer: false,
             links: [],
         };
+        this.checkToken = this.checkToken.bind(this);
     }
     
     onSearch(keyword) {
@@ -31,7 +35,13 @@ class Home extends Component {
         window.open(url)
     }
 
-    onOpenAddPanel() {
+    /**
+     * 打开管理面板
+     * @author Bruce Lee
+     * @date 2021-04-21
+     * @returns {any}
+     */
+    onOpenManagePanel() {
         const token = localStorage.getItem('token');
         if (token) {
             this.setState({
@@ -44,10 +54,29 @@ class Home extends Component {
         }
     }
 
+    /**
+     * 打开添加面板
+     * @author Bruce Lee
+     * @date 2021-04-21
+     * @returns {any}
+     */
+     openAddPanel() {
+        this.setState({
+            visibleNewEntryDrawer: true,
+        });
+    }
+
+    /**
+     * 关闭所有面板
+     * @author Bruce Lee
+     * @date 2021-04-21
+     * @returns {any}
+     */
     onClose() {
         this.setState({
             visibleLoginDrawer: false,
             visibleManageDrawer: false,
+            visibleNewEntryDrawer: false,
         });
     }
 
@@ -58,13 +87,29 @@ class Home extends Component {
      * @returns {any}
      */
     getEntryList() {
-        this.loginLoading = true;
         return getEntryListApi().then((data) => {
             this.setState({
                 links: data || []
             });
         }).finally(() => {
-            this.loginLoading = false;
+
+        });
+    }
+
+    /**
+     * 获取所有入口
+     * @author Bruce Lee
+     * @date 2021-04-21
+     * @returns {any}
+     */
+    checkToken() {
+        return checkTokenApi().then((data) => {
+            this.onOpenManagePanel();
+        },() => {
+            localStorage.removeItem('token');
+            this.onOpenManagePanel();
+        }).finally(() => {
+
         });
     }
 
@@ -73,13 +118,13 @@ class Home extends Component {
     }
 
     render () {
-        const { visibleLoginDrawer, visibleManageDrawer, links } = this.state;
+        const { visibleLoginDrawer, visibleManageDrawer, visibleNewEntryDrawer, links } = this.state;
 
         return (
             <main className={Style.home}>
                 <Button className={Style.btnAdd} shape="circle" icon={<PlusOutlined />} size={16} 
                     onClick={() => {
-                        this.onOpenAddPanel()
+                        this.checkToken()
                     }}
                 />
                 <div className={Style.content}>
@@ -105,7 +150,8 @@ class Home extends Component {
                 </div>
 
                 <LoginDrawer visible={visibleLoginDrawer} onClose={()=>this.onClose()}/>
-                <ManageDrawer visible={visibleManageDrawer} onClose={()=>this.onClose()}/>
+                <ManageDrawer visible={visibleManageDrawer} onClose={()=>this.onClose()}  openAddPanel={()=>this.openAddPanel()}/>
+                <NewEntryDrawer visible={visibleNewEntryDrawer} onClose={()=>this.onClose()}/>
             </main>
         );
     }

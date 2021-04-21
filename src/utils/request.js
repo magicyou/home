@@ -8,7 +8,7 @@ const debounceMessage = debounce(function (message) {
 }, 100)
 
 const getToken = function () {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') || '';
 }
 
 // api 配置
@@ -18,7 +18,6 @@ const onError = error => {
     if (error.response) {
         const status = error.response.status
         const message = error.response.statusText
-        // const token = Vue.ss.get(ACCESS_TOKEN)
 
         if (status === 403) {
             notification.error({ title: 'Forbidden', message: message })
