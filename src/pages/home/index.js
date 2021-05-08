@@ -109,7 +109,7 @@ class Home extends Component {
             localStorage.removeItem('token');
             this.onOpenManagePanel();
         }).finally(() => {
-
+            
         });
     }
 

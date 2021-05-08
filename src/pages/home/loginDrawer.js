@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Input, Button, Drawer, Form } from 'antd';
 import {
-    UserOutlined
+    UserOutlined,
+    LockOutlined
 } from '@ant-design/icons';
 import { loginApi } from '../../api/login/index'
 
@@ -102,7 +103,7 @@ class newEntryDrawer extends Component {
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
                         <Input.Password 
-                            prefix={<UserOutlined />} 
+                            prefix={<LockOutlined />} 
                             value={password}
                             onChange={(e)=>this.inputPassword(e)}
                         />

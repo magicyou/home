@@ -3,7 +3,8 @@ import axios from '../../utils/request';
 const UrlObj = {
     getEntryListUrl: '/home/getEntryList',
     deleteEntryByIdUrl: '/home/deleteEntryById',
-    switchEntryDisplayByidUrl: '/home/switchEntryDisplayByid'
+    switchEntryDisplayByidUrl: '/home/switchEntryDisplayByid',
+    getIconListUrl: '/icon/getIconList'
 };
 
 /**
@@ -53,6 +54,23 @@ export const getEntryListApi = (data) => {
             url: UrlObj.switchEntryDisplayByidUrl,
             data: data,
             method: 'put'
+        }
+    )
+};
+
+/**
+ * 获取icon的列表
+ * @author Bruce Lee
+ * @date 2021-04-12
+ * @param {any} data
+ * @returns {any}
+ */
+export const getIconListApi = (data) => {
+    return axios.request(
+        {
+            url: UrlObj.getIconListUrl,
+            params: data,
+            method: 'get'
         }
     )
 };
