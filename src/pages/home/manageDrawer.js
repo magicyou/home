@@ -171,7 +171,7 @@ class manageDrawer extends Component {
                             <IconFont type={item.icon} />
                             }
                             title={<a href="https://ant.design">{item.name}</a>}
-                            description={item.linkUrl || '-'}
+                            description={item.link_url || '-'}
                         />
                         </Skeleton>
                     </List.Item>

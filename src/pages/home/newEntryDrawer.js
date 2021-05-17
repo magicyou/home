@@ -3,8 +3,7 @@ import { Input, Button, Drawer, Form, Select } from 'antd';
 import {
     UserOutlined
 } from '@ant-design/icons';
-import { loginApi } from '../../api/login/index'
-import { getIconListApi } from '../../api/entry/index'
+import { addEntryApi, getIconListApi } from '../../api/entry/index'
 
 class newEntryDrawer extends Component {
     constructor(props) {
@@ -16,8 +15,9 @@ class newEntryDrawer extends Component {
             iconList: [],
         };
         this.onClose = this.onClose.bind(this);
-        this.inputUserName = this.inputUserName.bind(this);
-        this.inputPassword = this.inputPassword.bind(this);
+        this.inputName = this.inputName.bind(this);
+        this.inputLinkUrl = this.inputLinkUrl.bind(this);
+        this.selectIcon = this.selectIcon.bind(this);
         this.doAddNewEntry = this.doAddNewEntry.bind(this);
         this.afterVisibleChange = this.afterVisibleChange.bind(this);
     }
@@ -26,45 +26,31 @@ class newEntryDrawer extends Component {
         this.props.onClose();
     }
 
-    inputUserName(e) {
+    inputName(e) {
         this.setState({
-            username: e.target.value
+            name: e.target.value
         });
     }
 
-    inputPassword(e) {
+    inputLinkUrl(e) {
         this.setState({
-            password: e.target.value
+            link_url: e.target.value
+        });
+    }
+
+    selectIcon(e) {
+        this.setState({
+            icon: e || ''
         });
     }
 
     /**
-     * 登录操作
+     * 获取所有icon
      * @author Bruce Lee
      * @date 2021-04-21
      * @returns {any}
      */
-    doAddNewEntry() {
-        const { username, password } = this.state;
-        let params = {
-            username,
-            password
-        };
-        return loginApi(params).then((data) => {
-            localStorage.setItem('token', data.token);
-            this.onClose();
-        }).finally(() => {
-            
-        });
-    }
-
-     /**
-     * 获取所有入口
-     * @author Bruce Lee
-     * @date 2021-04-21
-     * @returns {any}
-     */
-      getIconList() {
+    getIconList() {
         return getIconListApi().then((data) => {
             this.setState({
                 iconList: data.glyphs || []
@@ -80,7 +66,26 @@ class newEntryDrawer extends Component {
         }
     }
 
-
+    /**
+     * 登录操作
+     * @author Bruce Lee
+     * @date 2021-04-21
+     * @returns {any}
+     */
+    doAddNewEntry() {
+        const { name, icon, link_url } = this.state;
+        let params = {
+            name,
+            icon: 'icon'+icon, 
+            link_url
+        };
+        return addEntryApi(params).then((data) => {
+            localStorage.setItem('token', data.token);
+            this.onClose();
+        }).finally(() => {
+            
+        });
+    }
 
     render () {
         const { visible } = this.props;
@@ -119,7 +124,7 @@ class newEntryDrawer extends Component {
                         <Input 
                             placeholder="Name" 
                             value={name}
-                            onChange={(e)=>this.inputUserName(e)}
+                            onChange={(e)=>this.inputName(e)}
                         />
                     </Form.Item>
 
@@ -131,7 +136,7 @@ class newEntryDrawer extends Component {
                         <Input 
                             placeholder="Link url" 
                             value={link_url}
-                            onChange={(e)=>this.inputPassword(e)}
+                            onChange={(e)=>this.inputLinkUrl(e)}
                         />
                     </Form.Item>
 
@@ -140,17 +145,22 @@ class newEntryDrawer extends Component {
                         name="icon"
                         rules={[{ required: true, message: 'Please select the icon!' }]}
                     >
-                        <Select  placeholder="Link url"  value={icon} allowClear>
+                        <Select  
+                            placeholder="Icon"  
+                            value={icon} 
+                            onChange={(e)=>this.selectIcon(e)}
+                            allowClear 
+                        >
                             {
-                                iconList.map(item => {
-                                    return ( <Select.Option value={item.font_class}>{ item.font_class }</Select.Option>)
+                                iconList.map((item, index) => {
+                                    return ( <Select.Option value={item.font_class} key={index}>{ item.name }</Select.Option>)
                                 })
                             }
                         </Select>
                     </Form.Item>
                 </Form>
 
-                <Button type="primary" block onClick={()=> {this.doAdd()}}>Login</Button>
+                <Button type="primary" block onClick={()=> {this.doAddNewEntry()}}>Add</Button>
 
             </Drawer>
         )

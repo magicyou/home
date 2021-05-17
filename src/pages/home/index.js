@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IconFont from '../../components/IconFont';
-import Style from './home.module.css';
+import Style from './home.module.scss';
 import { Input, Row, Col, Button } from 'antd';
 import {
     PlusOutlined,
@@ -139,6 +139,7 @@ class Home extends Component {
                                 <Col className="gutter-row" span={6} key={index}>
                                     <Button 
                                         type="link" 
+                                        className={Style.antBtnLink}
                                         onClick={() => this.linkTo(item.linkUrl)}
                                     >
                                         <IconFont type={item.icon} />
