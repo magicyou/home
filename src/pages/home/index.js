@@ -78,6 +78,7 @@ class Home extends Component {
             visibleManageDrawer: false,
             visibleNewEntryDrawer: false,
         });
+        this.getEntryList();
     }
 
     /**
@@ -140,7 +141,7 @@ class Home extends Component {
                                     <Button 
                                         type="link" 
                                         className={Style.antBtnLink}
-                                        onClick={() => this.linkTo(item.linkUrl)}
+                                        onClick={() => this.linkTo(item.link_url)}
                                     >
                                         <IconFont type={item.icon} />
                                         <p className="height-100">{ item.name }</p>

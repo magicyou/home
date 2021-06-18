@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { debounce } from './optimize';
 import { notification } from 'antd';
-const Host = 'http://127.0.0.1:7001';
+// const Host = 'http://127.0.0.1:7001';
+const Host = 'https://magicyou.cn';
 
 const debounceMessage = debounce(function (message) {
     notification.error({ title: 'error', message: message })
